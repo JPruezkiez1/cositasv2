@@ -6,7 +6,7 @@ export const DefaultContextProvider = ({ children }) => {
     const [loginOpen, setOpenLogin] = useState(false);
     const [open, setOpen] = useState(false);
     useEffect(() => {
-        fetch('https://nodejs-dot-strategic-reef-401621.ue.r.appspot.com/products')
+        fetch('https://nodejs.jpruezkiez.com/products')
             .then(res => res.json())
             .then(products => setProducts(products))
     }, []);

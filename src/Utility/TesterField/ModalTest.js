@@ -12,6 +12,7 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     maxWidth: 'md',
+    maxHeigh: 'md',
     bgcolor: 'background.paper',
     boxShadow: '2px 2px 45px 2px purple',
     overflow: 'hidden',
@@ -21,8 +22,6 @@ const style = {
 export default function TestModal({ content }) {
 
     const { open, handleClose } = useContext(DefaultContext);
-    // console.log(content)
-
     return (
         <div>
 

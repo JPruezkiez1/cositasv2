@@ -21,7 +21,6 @@ const style = {
     borderRadius: 15,
     p: 3,
 };
-
 const rfields = [
     {
         label: 'Username',
@@ -38,9 +37,7 @@ export default function Login() {
     const [formValues, setFormValues] = useState({});
 
     const handleLogin = () => {
-
-
-        axios.post('https://nodejs-dot-strategic-reef-401621.ue.r.appspot.com/login', {
+        axios.post('https://nodejs.jpruezkiez.com/', {
             username: formValues.Username,
             password: formValues.Password,
         })
@@ -51,7 +48,6 @@ export default function Login() {
                 console.error('Error during login:', error);
             });
     };
-
 
     return (
         <Modal
@@ -66,7 +62,7 @@ export default function Login() {
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
-                <img width='340px' height='100%' src="http://34.75.37.247/images/Qib4VT.jpg" />
+                <img width='340px' height='100%' src="http://awo.jpruezkiez.com/Qib4VT.jpg" />
                 <Box sx={{ width: 240, display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', gap: '5px', padding: '10px', '& .MuiTextField-root': { m: 1, } }}>
                     <FieldComponent sx={{ display: 'flex', }} rfields={rfields} formValues={formValues} setFormValues={setFormValues} />
                     <Button onClick={handleLogin} sx={{ width: 75, background: 'purple' }} variant="contained">Login</Button>

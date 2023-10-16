@@ -12,9 +12,9 @@ export default function Gal() {
     useEffect(() => {
         const fetchImageData = async () => {
             try {
-                const response = await axios.get('https://nodejs-dot-strategic-reef-401621.ue.r.appspot.com/checkimage');
+                const response = await axios.get('https://nodejs.jpruezkiez.com/checkimage');
                 const data = response.data;
-                const filteredData = data.filter((item) => item.name === 'starcositas');
+                const filteredData = data.filter((item) => item.name === 'EA');
                 setFilteredData(filteredData);
             } catch (error) {
                 console.error('Error fetching data:', error);
