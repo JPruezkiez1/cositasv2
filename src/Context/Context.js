@@ -6,7 +6,7 @@ export const DefaultContextProvider = ({ children }) => {
     const [loginOpen, setOpenLogin] = useState(false);
     const [open, setOpen] = useState(false);
     useEffect(() => {
-        fetch('https://nodejs.jpruezkiez.com/products')
+        fetch('https://ns1.jpruezkiez.com/products')
             .then(res => res.json())
             .then(products => setProducts(products))
     }, []);

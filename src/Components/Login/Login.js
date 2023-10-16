@@ -37,7 +37,7 @@ export default function Login() {
     const [formValues, setFormValues] = useState({});
 
     const handleLogin = () => {
-        axios.post('https://nodejs.jpruezkiez.com/', {
+        axios.post('https://ns1.jpruezkiez.com/', {
             username: formValues.Username,
             password: formValues.Password,
         })
