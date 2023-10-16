@@ -1,0 +1,34 @@
+.photo_place01 {
+    background: red;
+    width: 50vw;
+    height: 50vh;
+    overflow: hidden;
+    position: relative;
+    border: 3px solid black;
+    margin-top: 10px;
+}
+
+.img_01 {
+    background: lightblue;
+    object-fit: fill;
+    width: 100%;
+    height: 100%;
+}
+
+.legend_01 {
+    z-index: 10;
+    color: black;
+    font-weight: bolder;
+    position: absolute;
+    top: 84%;
+    left: 77%;
+    transform: translate(-50%, -50%);
+}
+
+.pics_container {
+    display: flex;
+    width: 100vw;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 10px;
+}

@@ -1,0 +1,24 @@
+.registerbutton_container {
+    display: flex;
+    justify-content: center;
+    padding: 25px;
+    gap: 5px 5px;
+}
+
+
+.uwutest21 {
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.register_sizefields {
+    height: 60px;
+    width: 120px;
+}
+
+.img_class {
+    width: 450px;
+    height: 630px;
+    border-radius: 35%;
+}
