@@ -33,16 +33,18 @@ const rfields = [
 ];
 
 export default function Login() {
-    const { loginOpen, closeLogin } = useContext(DefaultContext);
+    const { loginOpen, closeLogin, setLoggedInUser } = useContext(DefaultContext);
     const [formValues, setFormValues] = useState({});
-
     const handleLogin = () => {
-        axios.post('https://ns1.jpruezkiez.com/', {
+        axios.post('https://ns1.jpruezkiez.com/login', {
             username: formValues.Username,
             password: formValues.Password,
         })
             .then(response => {
-                console.log('Login response:', response);
+                const { loggedInUser } = response.data;
+                localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+                setLoggedInUser(loggedInUser);
+                window.location.href = '/';
             })
             .catch(error => {
                 console.error('Error during login:', error);
@@ -62,7 +64,7 @@ export default function Login() {
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
-                <img width='340px' height='100%' src="http://awo.jpruezkiez.com/Qib4VT.jpg" />
+                <img width='340px' height='100%' src="https://awo.jpruezkiez.com/Qib4VT.jpg" />
                 <Box sx={{ width: 240, display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', gap: '5px', padding: '10px', '& .MuiTextField-root': { m: 1, } }}>
                     <FieldComponent sx={{ display: 'flex', }} rfields={rfields} formValues={formValues} setFormValues={setFormValues} />
                     <Button onClick={handleLogin} sx={{ width: 75, background: 'purple' }} variant="contained">Login</Button>
