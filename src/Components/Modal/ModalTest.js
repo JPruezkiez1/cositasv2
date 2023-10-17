@@ -1,8 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { DefaultContext } from '../../Context/Context';
-import { useContext } from 'react';
+
 
 
 const style = {
@@ -11,7 +10,7 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    maxWidth: 'md',
+    maxWidth: '70vw',
     maxHeigh: 'md',
     bgcolor: 'background.paper',
     boxShadow: '2px 2px 45px 2px purple',
@@ -19,12 +18,9 @@ const style = {
     borderRadius: '15px',
 };
 
-export default function TestModal({ content }) {
-
-    const { open, handleClose } = useContext(DefaultContext);
+export default function TestModal({ content, open, handleClose }) {
     return (
         <div>
-
             <Modal
                 open={open}
                 onClose={handleClose}

@@ -1,4 +1,3 @@
-import Container from '../../Components/Container/Container'
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import './Register.css'
@@ -6,7 +5,6 @@ import photo from './awoo.jpg'
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import axios from 'axios';
-import { TextField } from '@mui/material';
 import FieldComponent from './Fiels';
 const countries = [
     { value: 1, label: 'United States' },
@@ -41,10 +39,12 @@ const rfields = [
     {
         label: 'Birthday',
         type: 'date',
+        defaultValue: '1998-11-18',
     },
     {
         label: 'Email',
         type: 'email',
+        placeholder: 'ur sexy name here'
     },
     {
         label: 'FirstName',
@@ -77,7 +77,7 @@ const rfields = [
     },
 
 ];
-const Connection = 'https://nodejs-dot-strategic-reef-401621.ue.r.appspot.com/add-customer';
+const Connection = 'https://ns1.jpruezkiez.com/add-customer';
 
 export default function Register() {
     const [formValues, setFormValues] = useState({});
@@ -91,57 +91,54 @@ export default function Register() {
             email: formValues['Email'] || '',
             birthdate: formValues['Birthday'] || '',
             sex: formValues['Sex'] || '',
-            image: 'https://us.rule34.xxx//images/5352/5595d1b5be326901708b21d914ef1454.jpeg?6097844',
+            image: 'n/a',
         };
         axios
             .post(Connection, requestData)
             .then((response) => {
-                console.log('User registered:', response.data);
+
             })
             .catch((error) => {
                 console.error('Error registering user:', error);
             });
     };
-    const logFormValues = () => {
-        console.log('Form Values:', formValues);
-    };
-    return (
-        <Container>
-            <Box
-                sx={{
-                    display: 'flex'
-                }}>
-                <img className='img_class' src={photo} />
-                <Box sx={{
-                    flexDirection: 'column',
-                    display: 'flex',
-                    justifyContent: 'center'
-                }}>
-                    <Box
-                        sx={{
-                            flexWrap: 'wrap',
-                            justifyContent: 'center',
-                            display: 'flex',
-                            height: 290,
-                            textAlign: 'center',
-                            width: 550,
-                            '& .MuiTextField-root': { m: 1, width: '25ch' },
-                        }}
-                    >
-                        <FieldComponent rfields={rfields} formValues={formValues} setFormValues={setFormValues} />
-                    </Box>
-                    <Box sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        width: '100%',
 
-                    }}>
-                        <Button onClick={logFormValues} sx={{ background: 'purple' }} variant="contained">Register</Button>
-                    </Box>
+    return (
+
+        <Box
+            sx={{
+
+                display: 'flex',
+            }}>
+            <img className='img_class' src={photo} />
+            <Box sx={{
+                flexDirection: 'column',
+                display: 'flex',
+                justifyContent: 'center'
+            }}>
+                <Box
+                    sx={{
+                        flexWrap: 'wrap',
+                        justifyContent: 'center',
+                        display: 'flex',
+                        height: 290,
+                        textAlign: 'center',
+                        width: 550,
+                        '& .MuiTextField-root': { m: 1, width: '25ch' },
+                    }}
+                >
+                    <FieldComponent rfields={rfields} formValues={formValues} setFormValues={setFormValues} />
+                </Box>
+                <Box sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    width: '100%',
+
+                }}>
+                    <Button onClick={PostUser} sx={{ background: 'purple' }} variant="contained">Register</Button>
                 </Box>
             </Box>
-
-        </Container >
+        </Box>
     )
 
 

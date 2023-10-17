@@ -5,8 +5,8 @@ import FieldComponent from '../../Pages/Register/Fiels';
 import { DefaultContext } from '../../Context/Context';
 import { Button } from '@mui/material';
 import Alert from '@mui/material/Alert';
-import customAxios from '../../Utility/Routes/CustomAxios'
-
+import axios from 'axios';
+import { ModalContext } from '../../Context/MContext';
 const style = {
     outline: 'none',
     position: 'absolute',
@@ -17,11 +17,10 @@ const style = {
     bgcolor: 'background.paper',
     border: '3px solid purple',
     display: 'flex',
-    boxShadow: 24,
+    boxShadow: '2px 2px 45px 2px purple',
     borderRadius: 15,
     p: 3,
 };
-
 const rfields = [
     {
         label: 'Username',
@@ -32,14 +31,14 @@ const rfields = [
         type: 'password',
     },
 ];
-
 export default function Login() {
-    const { loginOpen, closeLogin, setLoggedInUser } = useContext(DefaultContext);
+    const { loginOpen, closeLogin } = useContext(ModalContext);
+    const { setLoggedInUser } = useContext(DefaultContext);
     const [formValues, setFormValues] = useState({});
     const [error, setError] = useState(null);
 
     const handleLogin = () => {
-        customAxios
+        axios
             .post('https://ns1.jpruezkiez.com/login', {
                 username: formValues.Username,
                 password: formValues.Password,
@@ -51,15 +50,8 @@ export default function Login() {
                 window.location.href = '/';
             })
             .catch(error => {
-                if (error.response && error.response.data && error.response.data.error) {
-                    setError(error.response.data.error);
-                } else if (error.response && error.response.data && error.response.data.message) {
-                    setError(error.response.data.message);
-                } else if (error.request) {
-                    setError('No response received from server.');
-                } else {
-                    setError('Error during login. Please try again later.');
-                }
+                const errorMessage = error.response?.data?.error || 'Error during login. Please try again later.';
+                setError(errorMessage);
             });
     };
 

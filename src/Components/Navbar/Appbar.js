@@ -4,8 +4,23 @@ import { useContext } from 'react';
 import { DefaultContext } from '../../Context/Context';
 import StarBorderPurple500OutlinedIcon from '@mui/icons-material/StarBorderPurple500Outlined';
 import { Link } from 'react-router-dom';
+import FieldComponent from '../../Pages/Register/Fiels';
+import TestModal from '../Modal/ModalTest';
+import { ModalContext } from '../../Context/MContext';
+import Register from '../../Pages/Register/Register';
+const rfields = [
+    {
+        label: 'Username',
+        type: 'text',
+    },
+    {
+        label: 'Password',
+        type: 'password',
+    },
+];
 function Navbar() {
-    const { isLogged, openLogin, loggedInUser, setIsLogged } = useContext(DefaultContext);
+    const { openLogin, registerO, openRegister, closeRegister } = useContext(ModalContext);
+    const { isLogged, loggedInUser, setIsLogged } = useContext(DefaultContext);
     const handleLoginClick = () => {
         openLogin();
     };
@@ -26,11 +41,12 @@ function Navbar() {
                     {isLogged && <Avatar alt={loggedInUser.firstName} src={loggedInUser.image} />}
                 </ul>
                 <ul className='nav-links'>
-                    {!isLogged && <li onClick={handleLoginClick}>Login</li>}
-                    {!isLogged && <li>Register</li>}
+                    {!isLogged && <li style={{ cursor: 'pointer' }} onClick={handleLoginClick}>Login</li>}
+                    {!isLogged && <li style={{ cursor: 'pointer' }} onClick={openRegister} >Register</li>}
                     {isLogged && <li onClick={handleLogout}>Logout</li>}
                 </ul>
             </nav>
+            <TestModal content={<Register></Register>} open={registerO} handleClose={closeRegister} />
         </>
     );
 }

@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import './Product.css'
 function ProductCard({ productdata, handleOpen }) {
 
-    const handleImageClick = (item) => {
+    const handleImageClick = () => {
         handleOpen();
     };
 
