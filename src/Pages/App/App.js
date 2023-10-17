@@ -7,7 +7,7 @@ import Register from "../Register/Register";
 import Login from "../../Components/Login/Login";
 import Gal from "../../Utility/ImageCard/Gal";
 import { AuthRoutes } from "../../Utility/Routes/Preventor";
-import ProtectedRoute from "../../Utility/Routes/Preventor";
+
 import { ModalContextProvider } from "../../Context/MContext";
 
 

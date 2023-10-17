@@ -1,5 +1,4 @@
 import { createContext, useState, useEffect } from 'react';
-
 export const DefaultContext = createContext();
 export const DefaultContextProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
@@ -18,7 +17,6 @@ export const DefaultContextProvider = ({ children }) => {
             setIsLogged(true);
         }
     }, []);
-
     return (
         <DefaultContext.Provider value={{
             products,
