@@ -1,19 +1,17 @@
 import { useContext } from "react"
 import './Store.css'
 import { DefaultContext } from "../../Context/Context"
-import { ModalContext } from '../../Context/MContext'
 import ProductCard from '../../Components/ProductCard/ProductCard'
 import Container from '../../Components/Container/Container'
 import { Alert } from "@mui/material"
-import TestModal from "../../Components/Modal/ModalTest"
 
 export default function Store() {
     const context = useContext(DefaultContext);
-    const { openproduct, openP, closeproduct } = useContext(ModalContext);
+
     const conditionalRenderForSearch = () => {
         if (context.products?.length > 0) {
             return context.products?.map((product) => (
-                <ProductCard handleOpen={openproduct} key={product.id} productdata={product} />
+                <ProductCard key={product.id} productdata={product} />
             ));
         }
         return <Alert sx={{ marginTop: '30px', height: 70, fontSize: 30 }} severity="error">Could not load products!</Alert>
@@ -22,7 +20,6 @@ export default function Store() {
     return (
         <Container>
             <div className='Store_container'>{conditionalRenderForSearch()}</div>
-            <TestModal open={openP} handleClose={closeproduct} content={<idv>you gae</idv>} />
         </Container>
     )
 
