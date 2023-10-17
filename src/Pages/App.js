@@ -26,6 +26,9 @@ const AppRoutes = () => {
 };
 
 function App() {
+  window.onunhandledrejection = (event) => {
+    event.preventDefault();
+  };
   return (
     <>
       <DefaultContextProvider>
