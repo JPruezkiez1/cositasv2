@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import Container from '../../Components/Container/Container';
+import Alert from '@mui/material/Alert';
 const FileUploadComponent = () => {
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [name, setName] = useState('');
@@ -19,7 +20,7 @@ const FileUploadComponent = () => {
         });
         formData.append('name', name);
 
-        fetch('http://file.jpruezkiez.com/', {
+        fetch('https://file.jpruezkiez.com/', {
             method: 'POST',
             body: formData,
         })
@@ -35,11 +36,16 @@ const FileUploadComponent = () => {
     };
 
     return (
-        <div>
-            <input type="file" onChange={handleFileChange} multiple />
-            <input type="text" value={name} onChange={handleNameChange} placeholder="Name" />
-            <button onClick={handleUpload}>Upload</button>
-        </div>
+        <Container>
+            <div>
+                <div>
+                    <input type="file" onChange={handleFileChange} multiple />
+                    <input type="text" value={name} onChange={handleNameChange} placeholder="Name" />
+                    <button onClick={handleUpload}>Upload</button>
+                </div>
+                <Alert severity="success">This is a success alert — check it out!</Alert>
+            </div>
+        </Container>
     );
 };
 
