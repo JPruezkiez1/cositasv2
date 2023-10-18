@@ -20,6 +20,7 @@ const AppRoutes = () => {
       <Route path="/upload" element={<Tester />} />
       <Route path="/login" element={<AuthRoutes><Login /></AuthRoutes>} />
       <Route path="/tf" element={<Gal />} />
+      <Route path="/store" element={<Store />} />
     </Routes>
   );
 };
@@ -30,15 +31,15 @@ function App() {
   };
   return (
     <>
-      <ModalContextProvider>
-        <DefaultContextProvider>
-          <BrowserRouter>
+      <BrowserRouter>
+        <ModalContextProvider>
+          <DefaultContextProvider>
             <Navbar />
             <Login />
             <AppRoutes />
-          </BrowserRouter>
-        </DefaultContextProvider>
-      </ModalContextProvider>
+          </DefaultContextProvider>
+        </ModalContextProvider>
+      </BrowserRouter>
     </>
   );
 }
