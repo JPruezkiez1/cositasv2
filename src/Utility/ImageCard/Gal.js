@@ -15,7 +15,7 @@ export default function Gal() {
             try {
                 const response = await axios.get('https://ns1.jpruezkiez.com/checkimage');
                 const data = response.data;
-                const filteredData = data.filter((item) => item.name === 'starcositas');
+                const filteredData = data.filter((item) => item.name === 'MT');
                 setFilteredData(filteredData);
             } catch (error) {
                 console.error('Error fetching data:', error);
