@@ -1,6 +1,7 @@
 import { createContext, useState } from 'react';
 export const ModalContext = createContext();
 export const ModalContextProvider = ({ children }) => {
+
     const [loginOpen, setOpenLogin] = useState(false);
     const openLogin = () => setOpenLogin(true);
     const closeLogin = () => setOpenLogin(false);
@@ -10,10 +11,11 @@ export const ModalContextProvider = ({ children }) => {
     const openRegister = () => setRegister(true);
     const closeRegister = () => setRegister(false);
 
+
+
     const [openP, setOpenP] = useState(false);
     const openproduct = () => setOpenP(true);
     const closeproduct = () => setOpenP(false);
-
 
     const [checkimg, setCheckimg] = useState(false);
     const openimg = () => setCheckimg(true);

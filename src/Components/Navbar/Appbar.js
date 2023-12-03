@@ -4,10 +4,10 @@ import { useContext } from 'react';
 import { DefaultContext } from '../../Context/Context';
 import StarBorderPurple500OutlinedIcon from '@mui/icons-material/StarBorderPurple500Outlined';
 import { Link } from 'react-router-dom';
-import FieldComponent from '../../Pages/Register/Fiels';
 import TestModal from '../Modal/ModalTest';
 import { ModalContext } from '../../Context/MContext';
 import Register from '../../Pages/Register/Register';
+import Login from '../../Pages/Login/Login';
 const rfields = [
     {
         label: 'Username',
@@ -19,11 +19,9 @@ const rfields = [
     },
 ];
 function Navbar() {
-    const { openLogin, registerO, openRegister, closeRegister } = useContext(ModalContext);
+    const { openLogin, registerO, openRegister, closeRegister, loginOpen, closeLogin } = useContext(ModalContext);
     const { isLogged, loggedInUser, setIsLogged } = useContext(DefaultContext);
-    const handleLoginClick = () => {
-        openLogin();
-    };
+
     const handleLogout = () => {
         localStorage.removeItem('loggedInUser');
         setIsLogged(false);
@@ -36,14 +34,15 @@ function Navbar() {
                     <div className='links_01'>
                         {isLogged && <li style={{ cursor: 'pointer' }} >Chocolates</li>}
                     </div>
-                    {/* {isLogged && <Avatar alt={loggedInUser.firstName} src={loggedInUser.image} />} */}
+                    {isLogged && <Avatar alt={loggedInUser.firstName} src={loggedInUser.image} />}
                 </ul>
                 <ul className='nav-links'>
-                    {!isLogged && <li style={{ cursor: 'pointer' }} onClick={handleLoginClick}>Login</li>}
+                    {!isLogged && <li style={{ cursor: 'pointer' }} onClick={openLogin}>Login</li>}
                     {!isLogged && <li style={{ cursor: 'pointer' }} onClick={openRegister} >Register</li>}
                     {isLogged && <li onClick={handleLogout}>Logout</li>}
                 </ul>
             </nav>
+            <TestModal content={<Login></Login>} open={loginOpen} handleClose={closeLogin} />
             <TestModal content={<Register></Register>} open={registerO} handleClose={closeRegister} />
         </>
     );

@@ -1,25 +1,13 @@
 import React, { useState, useContext } from 'react';
 import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
 import FieldComponent from '../../Pages/Register/Fiels';
 import { DefaultContext } from '../../Context/Context';
 import { Button } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import axios from 'axios';
-import { ModalContext } from '../../Context/MContext';
 const style = {
-    outline: 'none',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 600,
-    bgcolor: 'background.paper',
-    border: '3px solid purple',
     display: 'flex',
-    boxShadow: '2px 2px 45px 2px purple',
-    borderRadius: 15,
-    p: 3,
+    flexDirection: { xs: 'column', sm: 'row' },
 };
 const rfields = [
     {
@@ -32,7 +20,6 @@ const rfields = [
     },
 ];
 export default function Login() {
-    const { loginOpen, closeLogin } = useContext(ModalContext);
     const { setLoggedInUser } = useContext(DefaultContext);
     const [formValues, setFormValues] = useState({});
     const [error, setError] = useState(null);
@@ -56,19 +43,11 @@ export default function Login() {
     };
 
     return (
-        <Modal
-            sx={{
-                '& .MuiDialog-container': {
-                    outline: 'none',
-                },
-            }}
-            open={loginOpen}
-            onClose={closeLogin}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
+        <>
+
             <Box sx={style}>
-                <img width="340px" height="100%" src="https://awo.jpruezkiez.com/Qib4VT.jpg" />
+                <img style={{ maxWidth: '340px', height: 'auto', width: '100%' }} src="https://awo.jpruezkiez.com/Qib4VT.jpg" />
+
                 <Box
                     sx={{
                         width: 240,
@@ -101,6 +80,6 @@ export default function Login() {
                     )}
                 </Box>
             </Box>
-        </Modal>
+        </>
     );
 }

@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { DefaultContextProvider } from "../../Context/Context";
 import Store from "../Store/Store";
 import Register from "../Register/Register";
-import Login from "../../Components/Login/Login";
+import Login from "../Login/Login";
 import Gal from "../../Utility/ImageCard/Gal";
 import { AuthRoutes } from "../../Utility/Routes/Preventor";
 import { ModalContextProvider } from "../../Context/MContext";
@@ -34,7 +34,6 @@ function App() {
         <ModalContextProvider>
           <DefaultContextProvider>
             <Navbar />
-            <Login />
             <AppRoutes />
           </DefaultContextProvider>
         </ModalContextProvider>

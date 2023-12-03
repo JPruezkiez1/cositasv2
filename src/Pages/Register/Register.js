@@ -110,7 +110,8 @@ export default function Register() {
 
                 display: 'flex',
             }}>
-            <img className='img_class' src={photo} />
+            <img style={{ maxWidth: '340px', height: 'auto', width: '100%' }} src="https://awo.jpruezkiez.com/Qib4VT.jpg" />
+
             <Box sx={{
                 flexDirection: 'column',
                 display: 'flex',
