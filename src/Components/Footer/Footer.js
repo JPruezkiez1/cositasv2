@@ -6,10 +6,10 @@ const Footer = ({ content, active }) => {
     }
 
     return (
-        <div style={{ background: 'purple', position: 'fixed', bottom: 0, width: '100vw', height: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ background: 'purple', position: 'fixed', bottom: 0, width: '100vw', height: '30px', maxHeight: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             {content}
         </div>
     );
 };
 
-export default Footer
+export default Footer;
