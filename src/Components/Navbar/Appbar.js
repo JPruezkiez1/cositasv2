@@ -34,11 +34,9 @@ function Navbar() {
                 <ul className='nav-links'>
                     <div className='icon_01'><Link to='/' ><StarBorderPurple500OutlinedIcon className='icon_02' sx={{ width: '45px', height: '45px' }}></StarBorderPurple500OutlinedIcon></Link></div>
                     <div className='links_01'>
-                        <li>Chocolates</li>
-                        <li>Sour</li>
-                        <li>Users</li>
+                        {isLogged && <li style={{ cursor: 'pointer' }} >Chocolates</li>}
                     </div>
-                    {isLogged && <Avatar alt={loggedInUser.firstName} src={loggedInUser.image} />}
+                    {/* {isLogged && <Avatar alt={loggedInUser.firstName} src={loggedInUser.image} />} */}
                 </ul>
                 <ul className='nav-links'>
                     {!isLogged && <li style={{ cursor: 'pointer' }} onClick={handleLoginClick}>Login</li>}
