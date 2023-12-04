@@ -6,7 +6,7 @@ const FileUploadComponent = () => {
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [name, setName] = useState('');
     const [showAlert, setShowAlert] = useState(false);
-    const [isUploading, setIsUploading] = useState(false); // Add this line
+    const [isUploading, setIsUploading] = useState(false);
 
     const handleFileChange = (event) => {
         setSelectedFiles([...event.target.files]);
