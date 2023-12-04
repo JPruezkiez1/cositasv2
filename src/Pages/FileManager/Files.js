@@ -28,11 +28,11 @@ const DataTable = () => {
             renderCell: (params) => {
                 const onClick = async () => {
                     const id = params.row.id;
-                    const fileName = params.row.FileName; // Use FileName instead of image
+                    const fileName = params.row.FileName;
 
                     try {
                         const response = await axios.delete('https://file.jpruezkiez.com/deletefile', {
-                            data: { image: fileName } // Use FileName instead of image
+                            data: { image: fileName }
                         });
 
                         console.log(response.data);
@@ -43,6 +43,21 @@ const DataTable = () => {
                 };
 
                 return <Button variant="contained" color="secondary" onClick={onClick}>Delete</Button>;
+            },
+        },
+        {
+            field: 'download',
+            headerName: 'Download',
+            sortable: false,
+            width: 130,
+            disableClickEventBubbling: true,
+            renderCell: (params) => {
+                const onClick = () => {
+                    const url = params.row.image;
+                    window.open(url, '_blank');
+                };
+
+                return <Button variant="contained" color="primary" onClick={onClick}>Download</Button>;
             },
         },
     ];
