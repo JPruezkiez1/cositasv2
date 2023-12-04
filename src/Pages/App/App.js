@@ -5,9 +5,9 @@ import { DefaultContextProvider } from "../../Context/Context";
 import Store from "../Store/Store";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
-import Gal from "../../Utility/ImageCard/Gal";
 import { AuthRoutes } from "../../Utility/Routes/Preventor";
 import { ModalContextProvider } from "../../Context/MContext";
+import GalleryView from "../../Utility/ImageCard/Gal";
 
 
 
@@ -18,8 +18,8 @@ const AppRoutes = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/upload" element={<FileUploadComponent />} />
       <Route path="/login" element={<AuthRoutes><Login /></AuthRoutes>} />
-      <Route path="/tf" element={<Gal />} />
       <Route path="/store" element={<Store />} />
+      <Route path="/gv" element={<GalleryView />} />
     </Routes>
   );
 };
