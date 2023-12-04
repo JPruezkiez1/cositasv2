@@ -8,7 +8,7 @@ const DataTable = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios('https://ns1.jpruezkiez.com/checkimage');
+            const result = await axios('https://ns1.jpruezkiez.com/checkimage/name/uwu');
             setData(result.data);
         };
         fetchData();
