@@ -5,7 +5,8 @@ import Alert from '@mui/material/Alert';
 const FileUploadComponent = () => {
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [name, setName] = useState('');
-    const [showAlert, setShowAlert] = useState(false); // Add this line
+    const [showAlert, setShowAlert] = useState(false);
+    const [isUploading, setIsUploading] = useState(false); // Add this line
 
     const handleFileChange = (event) => {
         setSelectedFiles([...event.target.files]);
@@ -16,6 +17,7 @@ const FileUploadComponent = () => {
     };
 
     const handleUpload = () => {
+        setIsUploading(true);
         const formData = new FormData();
         selectedFiles.forEach((file) => {
             formData.append('image', file);
@@ -31,11 +33,15 @@ const FileUploadComponent = () => {
                 console.log(result);
                 setSelectedFiles([]);
                 setName('');
-                setShowAlert(true); // Add this line
+                setShowAlert(true);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             })
             .catch((error) => {
                 console.error('Error:', error);
-                setShowAlert(false); // Add this line
+                setShowAlert(false);
+                setIsUploading(false);
             });
     };
 
@@ -45,9 +51,9 @@ const FileUploadComponent = () => {
                 <div>
                     <input type="file" onChange={handleFileChange} multiple />
                     <input type="text" value={name} onChange={handleNameChange} placeholder="Name" />
-                    <button onClick={handleUpload}>Upload</button>
+                    <button onClick={handleUpload} disabled={isUploading}>Upload</button>
                 </div>
-                {showAlert && <Alert severity="success">Done!</Alert>} {/* Modify this line */}
+                {showAlert && <Alert severity="success">Done!</Alert>}
             </div>
         </Container>
     );
