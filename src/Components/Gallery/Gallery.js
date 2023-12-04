@@ -1,9 +1,8 @@
-// CustomGallery Component
 import React from 'react';
 
 export default function ImageGrid({ imagesData, handleOpen, setSelectedImage }) {
     return (
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
             {imagesData.map((item, index) => (
                 <div key={index} style={{ margin: '10px' }}>
                     <img
