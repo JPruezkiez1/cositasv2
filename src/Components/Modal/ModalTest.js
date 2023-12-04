@@ -8,7 +8,6 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    minWidth: '70vw',
     maxWidth: '100vw',
     maxHeigh: 'md',
     bgcolor: 'background.paper',
