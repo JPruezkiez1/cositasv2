@@ -24,7 +24,7 @@ const FileUploadComponent = () => {
         });
         formData.append('name', name);
 
-        fetch('https://file.jpruezkiez.com/', {
+        fetch('https://file.jpruezkiez.com/upload', {
             method: 'POST',
             body: formData,
         })
