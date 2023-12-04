@@ -19,6 +19,7 @@ const DataTable = () => {
         { field: 'name', headerName: 'Name', width: 130 },
         { field: 'image', headerName: 'File Url', width: 230 },
         { field: 'FileName', headerName: 'File Name', width: 230 },
+        { headerName: 'User', width: 230 },
         {
             field: 'delete',
             headerName: 'Delete',
