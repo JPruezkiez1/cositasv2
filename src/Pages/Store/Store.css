@@ -5,6 +5,8 @@
     justify-content: center;
     gap: 10px 10px;
     overflow: scroll;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .buttonsforpages {

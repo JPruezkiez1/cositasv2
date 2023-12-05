@@ -12,7 +12,7 @@ const DataTable = () => {
     const handleClose = () => setOpen(false);
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios('https://ns1.jpruezkiez.com/checkimage');
+            const result = await axios('https://ns1.jpruezkiez.com/checkimage/uploadname/naza');
             setData(result.data);
         };
         fetchData();
