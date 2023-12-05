@@ -46,7 +46,7 @@ export default function Login() {
         <>
 
             <Box sx={style}>
-                <img style={{ maxWidth: '340px', height: 'auto', width: '100%' }} src="https://awo.jpruezkiez.com/Qib4VT.jpg" />
+                <img style={{ maxWidth: '340px', height: 'auto', width: '100%' }} alt='awo' src="https://awo.jpruezkiez.com/Qib4VT.jpg" />
 
                 <Box
                     sx={{

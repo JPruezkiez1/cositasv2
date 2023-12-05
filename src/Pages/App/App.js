@@ -1,5 +1,4 @@
 import Navbar from "../../Components/Navbar/Appbar";
-import FileUploadComponent from "../FileUpload/tester";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { DefaultContextProvider } from "../../Context/Context";
 import Store from "../Store/Store";
@@ -16,7 +15,6 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<Store />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/upload" element={<FileUploadComponent />} />
       <Route path="/login" element={<AuthRoutes><Login /></AuthRoutes>} />
       <Route path="/store" element={<Store />} />
       <Route path="/gv" element={<GalleryView />} />
