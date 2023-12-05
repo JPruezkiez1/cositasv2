@@ -68,11 +68,18 @@ export default function Login() {
                     />
                     <Button
                         onClick={handleLogin}
-                        sx={{ width: 75, background: 'purple' }}
+                        sx={{
+                            width: 75,
+                            background: '#834AFD',
+                            '&:hover': {
+                                backgroundColor: '#834AFD',
+                            },
+                        }}
                         variant="contained"
                     >
                         Login
                     </Button>
+
                     {error && (
                         <Alert variant="filled" severity="error">
                             {error}

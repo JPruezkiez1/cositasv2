@@ -9,7 +9,7 @@ import { AuthRoutes } from "../../Utility/Routes/Preventor";
 import { ModalContextProvider } from "../../Context/MContext";
 import GalleryView from "../../Utility/ImageCard/Gal";
 import DataTable from "../FileManager/Files";
-
+import FileUploader from "../FileUpload/FileUploader";
 
 const AppRoutes = () => {
   return (
@@ -21,6 +21,7 @@ const AppRoutes = () => {
       <Route path="/store" element={<Store />} />
       <Route path="/gv" element={<GalleryView />} />
       <Route path="/files" element={<DataTable />} />
+      <Route path="/uploader" element={<FileUploader />} />
     </Routes>
   );
 };

@@ -1,4 +1,3 @@
-// GalleryView Page
 import React, { useEffect, useState, useContext } from 'react';
 import ImageGrid from '../../Components/Gallery/Gallery';
 import Container from "../../Components/Container/Container";
@@ -16,7 +15,7 @@ export default function GalleryView() {
             try {
                 const response = await axios.get('https://ns1.jpruezkiez.com/checkimage');
                 const data = response.data;
-                const filteredData = data.filter((item) => item.name === 'uwu');
+                const filteredData = data.filter((item) => item.upload === 'MT');
                 setFilteredData(filteredData);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -29,7 +28,7 @@ export default function GalleryView() {
     return (
         <Container>
             <ImageGrid handleOpen={openimg} setSelectedImage={setSelectedImage} imagesData={filteredData} style={{ width: '100%' }} />
-            <TestModal open={checkimg} handleClose={closeimg} content={<img alt='image_' src={selectedImage} style={{ minHeight: '65vh', minWidth: '320px', width: '100%', maxHeight: '80vh', objectFit: 'fill', background: 'red', }} />} />
+            <TestModal open={checkimg} handleClose={closeimg} content={<img alt='image_' src={selectedImage} style={{ minHeight: '65vh', minWidth: '320px', width: '100vh', maxHeight: '80vh', objectFit: 'fill', background: 'red', }} />} />
         </Container>
     );
 }

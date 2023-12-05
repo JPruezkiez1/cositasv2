@@ -8,7 +8,7 @@ const DataTable = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios('https://ns1.jpruezkiez.com/checkimage/name/uwu');
+            const result = await axios('https://ns1.jpruezkiez.com/checkimage');
             setData(result.data);
         };
         fetchData();
@@ -16,10 +16,10 @@ const DataTable = () => {
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
-        { field: 'name', headerName: 'Name', width: 130 },
-        { field: 'image', headerName: 'File Url', width: 230 },
-        { field: 'FileName', headerName: 'File Name', width: 230 },
-        { field: 'Owner', headerName: 'Owner', width: 230 }, ,
+        { field: 'upload', headerName: 'Upload Name', width: 130 },
+        { field: 'File_Link', headerName: 'Link To File', width: 230 },
+        { field: 'mbsize', headerName: 'Size In MB', width: 130 },
+        { field: 'file', headerName: 'FileName', width: 230 },
         {
             field: 'delete',
             headerName: 'Delete',
@@ -29,11 +29,11 @@ const DataTable = () => {
             renderCell: (params) => {
                 const onClick = async () => {
                     const id = params.row.id;
-                    const fileName = params.row.FileName;
+                    const fileName = params.row.file;
 
                     try {
                         const response = await axios.delete('https://file.jpruezkiez.com/deletefile', {
-                            data: { image: fileName }
+                            data: { filename: fileName }
                         });
 
                         console.log(response.data);
@@ -43,7 +43,12 @@ const DataTable = () => {
                     }
                 };
 
-                return <Button variant="contained" color="secondary" onClick={onClick}>Delete</Button>;
+                return <Button sx={{
+                    background: '#000',
+                    '&:hover': {
+                        backgroundColor: 'red',
+                    },
+                }} variant="contained" color="secondary" onClick={onClick}>Delete</Button>;
             },
         },
         {
@@ -54,11 +59,16 @@ const DataTable = () => {
             disableClickEventBubbling: true,
             renderCell: (params) => {
                 const onClick = () => {
-                    const url = params.row.image;
+                    const url = params.row.File_Link;
                     window.open(url, '_blank');
                 };
 
-                return <Button variant="contained" color="primary" onClick={onClick}>Download</Button>;
+                return <Button sx={{
+                    background: '#834AFD',
+                    '&:hover': {
+                        backgroundColor: '#834AFD',
+                    },
+                }} variant="contained" color="primary" onClick={onClick}>Download</Button>;
             },
         },
     ];
