@@ -8,16 +8,6 @@ import TestModal from '../Modal/ModalTest';
 import { ModalContext } from '../../Context/MContext';
 import Register from '../../Pages/Register/Register';
 import Login from '../../Pages/Login/Login';
-const rfields = [
-    {
-        label: 'Username',
-        type: 'text',
-    },
-    {
-        label: 'Password',
-        type: 'password',
-    },
-];
 function Navbar() {
     const { openLogin, registerO, openRegister, closeRegister, loginOpen, closeLogin } = useContext(ModalContext);
     const { isLogged, loggedInUser, setIsLogged } = useContext(DefaultContext);
