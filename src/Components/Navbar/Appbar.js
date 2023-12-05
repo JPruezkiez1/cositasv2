@@ -1,5 +1,6 @@
 import './Navbar.css';
-import { Avatar } from '@mui/material';
+import { Avatar, IconButton } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useContext } from 'react';
 import { DefaultContext } from '../../Context/Context';
 import StarBorderPurple500OutlinedIcon from '@mui/icons-material/StarBorderPurple500Outlined';
@@ -8,6 +9,7 @@ import TestModal from '../Modal/ModalTest';
 import { ModalContext } from '../../Context/MContext';
 import Register from '../../Pages/Register/Register';
 import Login from '../../Pages/Login/Login';
+
 function Navbar() {
     const { openLogin, registerO, openRegister, closeRegister, loginOpen, closeLogin } = useContext(ModalContext);
     const { isLogged, loggedInUser, setIsLogged } = useContext(DefaultContext);
@@ -16,6 +18,7 @@ function Navbar() {
         localStorage.removeItem('loggedInUser');
         setIsLogged(false);
     };
+
     return (
         <>
             <nav className="navbar">
@@ -25,6 +28,9 @@ function Navbar() {
                         {isLogged && <li style={{ cursor: 'pointer' }} >Chocolates</li>}
                     </div>
                     {isLogged && <Avatar alt={loggedInUser.firstName} src={loggedInUser.image} />}
+                    <IconButton color="inherit">
+                        <ShoppingCartIcon />
+                    </IconButton>
                 </ul>
                 <ul className='nav-links'>
                     {!isLogged && <li style={{ cursor: 'pointer' }} onClick={openLogin}>Login</li>}

@@ -10,7 +10,6 @@ import GalleryView from "../../Utility/ImageCard/Gal";
 import DataTable from "../FileManager/Files";
 import FileUploader from "../FileUpload/FileUploader";
 import Users from "../UserManagement/Users";
-
 const AppRoutes = () => {
   return (
     <Routes>
