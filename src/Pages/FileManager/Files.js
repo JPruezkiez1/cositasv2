@@ -21,7 +21,7 @@ const DataTable = () => {
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'upload', headerName: 'Upload Name', width: 130 },
-        { field: 'File_Link', headerName: 'Link To File', width: 230 },
+        { field: 'File_link', headerName: 'Link To File', width: 230 },
         { field: 'mbsize', headerName: 'Size In MB', width: 130 },
         { field: 'file', headerName: 'FileName', width: 230 },
         { field: 'Owner', headerName: 'File Owner', width: 230 },
@@ -62,7 +62,7 @@ const DataTable = () => {
             disableClickEventBubbling: true,
             renderCell: (params) => {
                 const onClick = () => {
-                    const url = params.row.File_Link;
+                    const url = params.row.File_link;
                     window.open(url, '_blank');
                 };
 
