@@ -12,7 +12,7 @@ const DataTable = () => {
     const handleClose = () => setOpen(false);
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios('https://ns1.jpruezkiez.com/checkimage/uploadname/naza');
+            const result = await axios('https://ns1.jpruezkiez.com/checkimage');
             setData(result.data);
         };
         fetchData();
@@ -26,6 +26,7 @@ const DataTable = () => {
         { field: 'file', headerName: 'FileName', width: 230 },
         { field: 'Owner', headerName: 'File Owner', width: 230 },
         {
+            field: ' ',
             sortable: false,
             disableColumnMenu: true,
             width: 100,
@@ -54,7 +55,7 @@ const DataTable = () => {
             },
         },
         {
-            field: 'download',
+            field: 'owner',
             headerName: '',
             sortable: false,
             width: 130,

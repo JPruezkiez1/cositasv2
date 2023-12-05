@@ -9,6 +9,7 @@ import { ModalContextProvider } from "../../Context/MContext";
 import GalleryView from "../../Utility/ImageCard/Gal";
 import DataTable from "../FileManager/Files";
 import FileUploader from "../FileUpload/FileUploader";
+import Users from "../UserManagement/Users";
 
 const AppRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const AppRoutes = () => {
       <Route path="/gv" element={<GalleryView />} />
       <Route path="/files" element={<DataTable />} />
       <Route path="/uploader" element={<FileUploader />} />
+      <Route path="/users" element={<Users />} />
     </Routes>
   );
 };

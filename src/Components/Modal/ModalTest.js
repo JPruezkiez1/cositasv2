@@ -14,6 +14,7 @@ const style = {
     boxShadow: '2px 2px 45px 2px purple',
     overflow: 'hidden',
     borderRadius: '15px',
+    display: 'inline-grid'
 };
 
 export default function TestModal({ content, open, handleClose }) {
