@@ -17,8 +17,7 @@ async function getLoads() {
 export default function LoadTable() {
     const [loads, setLoads] = useState([]);
     const [error, setError] = useState(null);
-    const [origin, setOrigin] = useState('');
-    const [destination, setDestination] = useState('');
+    const [events, setEvents] = useState([]);
 
     useEffect(() => {
         getLoads().then(setLoads).catch(setError);
@@ -44,10 +43,7 @@ export default function LoadTable() {
                     color="primary"
                     onClick={() => {
                         const load = loads.find((load) => load.LoadID === params.id);
-                        const pickupEvent = load.events.find((event) => event.EventType === 'PICKUP');
-                        const dropoffEvent = load.events.find((event) => event.EventType === 'DROP-OFF');
-                        setOrigin(pickupEvent.Address);
-                        setDestination(dropoffEvent.Address);
+                        setEvents(load.events);
                     }}
                 >
                     Show Directions
@@ -58,7 +54,7 @@ export default function LoadTable() {
 
     return (
         <Container>
-            <MapComponent origin={origin} destination={destination} />
+            <MapComponent events={events} />
             <div style={{ width: '100%', height: '50vh' }}>
                 <DataGrid rows={loads} columns={columns} pageSize={5} getRowId={(row) => row.LoadID} />
             </div>

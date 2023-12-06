@@ -1,12 +1,19 @@
 import { Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
-import { GoogleMap, LoadScript, DirectionsRenderer } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, DirectionsRenderer, Marker, InfoWindow } from '@react-google-maps/api';
 
-const MapComponent = ({ origin, destination }) => {
+const MapComponent = ({ events }) => {
     const [response, setResponse] = useState(null);
     const [distance, setDistance] = useState(0);
+    const [selectedEvent, setSelectedEvent] = useState(null);
 
     useEffect(() => {
+        if (!events || events.length === 0) {
+            return;
+        }
+
+        const sortedEvents = [...events].sort((a, b) => a.CallOrder - b.CallOrder);
+
         if (!window.google) {
             console.error("Google Maps JavaScript API not loaded");
             return;
@@ -15,8 +22,9 @@ const MapComponent = ({ origin, destination }) => {
         const directionsService = new window.google.maps.DirectionsService();
         directionsService.route(
             {
-                origin: origin,
-                destination: destination,
+                origin: sortedEvents[0].Address,
+                destination: sortedEvents[sortedEvents.length - 1].Address,
+                waypoints: sortedEvents.slice(1, -1).map(event => ({ location: event.Address })),
                 travelMode: window.google.maps.TravelMode.DRIVING,
             },
             (result, status) => {
@@ -29,7 +37,7 @@ const MapComponent = ({ origin, destination }) => {
                 }
             }
         );
-    }, [origin, destination]);
+    }, [events]);
 
     return (
         <div style={{ width: '60vw', height: 400, border: '1px solid black' }}>
@@ -41,11 +49,32 @@ const MapComponent = ({ origin, destination }) => {
                 >
                     {
                         response !== null && (
-                            <DirectionsRenderer
-                                options={{
-                                    directions: response
-                                }}
-                            />
+                            <>
+                                <DirectionsRenderer
+                                    options={{
+                                        directions: response,
+                                        suppressMarkers: false
+                                    }}
+                                />
+                                {events.map(event => (
+                                    <Marker
+                                        key={event.EventID}
+                                        position={{ lat: event.lat, lng: event.lng }}
+                                        onClick={() => {
+                                            setSelectedEvent(event);
+                                        }}
+                                        label={event.EventType}
+                                    >
+                                        {selectedEvent === event &&
+                                            <InfoWindow onCloseClick={() => setSelectedEvent(null)}>
+                                                <div>
+                                                    <h4>{event.EventType}</h4>
+                                                </div>
+                                            </InfoWindow>
+                                        }
+                                    </Marker>
+                                ))}
+                            </>
                         )
                     }
                 </GoogleMap>
