@@ -6,7 +6,7 @@ import Container from '../Container/Container';
 import Button from '@mui/material/Button';
 
 async function getLoads() {
-    const response = await fetch('http://ns1.jpruezkiez.com/loads');
+    const response = await fetch('https://ns1.jpruezkiez.com/loads');
     if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
     }
