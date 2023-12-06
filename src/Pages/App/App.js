@@ -10,6 +10,9 @@ import GalleryView from "../../Utility/ImageCard/Gal";
 import DataTable from "../FileManager/Files";
 import FileUploader from "../FileUpload/FileUploader";
 import Users from "../UserManagement/Users";
+import MapComponent from "../../Components/Map/Map";
+import LoadTable from "../../Components/Loads/Loads";
+
 const AppRoutes = () => {
   return (
     <Routes>
@@ -21,6 +24,8 @@ const AppRoutes = () => {
       <Route path="/files" element={<DataTable />} />
       <Route path="/uploader" element={<FileUploader />} />
       <Route path="/users" element={<Users />} />
+      <Route path="/maploads" element={<MapComponent />} />
+      <Route path="/loads" element={<LoadTable />} />
     </Routes>
   );
 };

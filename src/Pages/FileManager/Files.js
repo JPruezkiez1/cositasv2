@@ -26,7 +26,7 @@ const DataTable = () => {
         { field: 'file', headerName: 'FileName', width: 230 },
         { field: 'Owner', headerName: 'File Owner', width: 230 },
         {
-            field: ' ',
+            field: '',
             sortable: false,
             disableColumnMenu: true,
             width: 100,
@@ -41,7 +41,7 @@ const DataTable = () => {
                         });
 
                         console.log(response.data);
-                        setData((prevData) => prevData.filter((data) => data.id !== id));
+                        setData((prevData) => prevData.filter((data) => data.uplodname !== id));
                     } catch (error) {
                         console.error('Error:', error);
                     }
