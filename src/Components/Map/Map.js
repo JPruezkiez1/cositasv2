@@ -29,6 +29,7 @@ const MapComponent = ({ events }) => {
             },
             (result, status) => {
                 if (status === window.google.maps.DirectionsStatus.OK) {
+                    console.log(result);  // This line logs the API response
                     setResponse(result);
                     const totalDistance = result.routes[0].legs.reduce((total, leg) => total + leg.distance.value, 0) * 0.000621371;
                     setDistance(totalDistance);
