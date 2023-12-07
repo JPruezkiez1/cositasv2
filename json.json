@@ -1,0 +1,40 @@
+Storage { loggedInUser: '{
+        "username": "jpruezkiez",
+        "firstName": "Jonatan",
+        "lastName": "Pruezkiez",
+        "status": 1,
+        "image": "https://awo.jpruezkiez.com/QTk3am.jpeg",
+        "customerId": 44
+    }',
+    "geocodedEvents-19": '[
+        {
+            "EventID": 20,
+            "EventType": "PICKUP",
+            "Weight": "200.00",
+            "Address": "Brunswick, Georgia, USA",
+            "CallOrder": 1,
+            "LoadID": 19,
+            "State": "State1",
+            "Country": "Country1",
+            "City": "City1",
+            "Status": "PENDING",
+            "POD": "POD1",
+            "lat": 31.1510919,
+            "lng": -81.4878157
+        },
+        {
+            "EventID": 21,
+            "EventType": "DROP-OFF",
+            "Weight": "200.00",
+            "Address": "4590 S RESERVOIR RD AURORA CO 80015-2879 USA",
+            "CallOrder": 2,
+            "LoadID": 19,
+            "State": "State2",
+            "Country": "Country2",
+            "City": "City2",
+            "Status": "PENDING",
+            "POD": "POD2",
+            "lat": 39.6345603,
+            "lng": -104.7591584
+        }
+    ]'

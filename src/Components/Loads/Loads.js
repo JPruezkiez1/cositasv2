@@ -17,7 +17,7 @@ async function getLoads() {
 export default function LoadTable() {
     const [loads, setLoads] = useState([]);
     const [error, setError] = useState(null);
-    const [events, setEvents] = useState([]);
+    const [selectedLoad, setSelectedLoad] = useState(null);
 
     useEffect(() => {
         getLoads().then(setLoads).catch(setError);
@@ -42,8 +42,7 @@ export default function LoadTable() {
                     variant="contained"
                     color="primary"
                     onClick={() => {
-                        const load = loads.find((load) => load.LoadID === params.id);
-                        setEvents(load.events);
+                        setSelectedLoad(params.row);
                     }}
                 >
                     Show Directions
@@ -54,7 +53,7 @@ export default function LoadTable() {
 
     return (
         <Container>
-            <MapComponent events={events} />
+            <MapComponent events={selectedLoad ? selectedLoad.events : []} loadID={selectedLoad ? selectedLoad.LoadID : null} />
             <div style={{ width: '100%', height: '50vh' }}>
                 <DataGrid rows={loads} columns={columns} pageSize={5} getRowId={(row) => row.LoadID} />
             </div>

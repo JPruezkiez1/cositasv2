@@ -7,6 +7,8 @@ const MapComponent = ({ events }) => {
     const [distance, setDistance] = useState(0);
     const [selectedEvent, setSelectedEvent] = useState(null);
 
+    const iconBase = 'https://awo.jpruezkiez.com/POeshh.png'; // Replace with your icon URL
+
     useEffect(() => {
         if (!events || events.length === 0) {
             return;
@@ -22,15 +24,16 @@ const MapComponent = ({ events }) => {
         const directionsService = new window.google.maps.DirectionsService();
         directionsService.route(
             {
-                origin: sortedEvents[0].Address,
-                destination: sortedEvents[sortedEvents.length - 1].Address,
-                waypoints: sortedEvents.slice(1, -1).map(event => ({ location: event.Address })),
+                origin: sortedEvents[0].lat && sortedEvents[0].lng ? { lat: sortedEvents[0].lat, lng: sortedEvents[0].lng } : sortedEvents[0].Address,
+                destination: sortedEvents[sortedEvents.length - 1].lat && sortedEvents[sortedEvents.length - 1].lng ? { lat: sortedEvents[sortedEvents.length - 1].lat, lng: sortedEvents[sortedEvents.length - 1].lng } : sortedEvents[sortedEvents.length - 1].Address,
+                waypoints: sortedEvents.slice(1, -1).map((event) => ({ location: event.lat && event.lng ? { lat: event.lat, lng: event.lng } : event.Address })),
                 travelMode: window.google.maps.TravelMode.DRIVING,
             },
             (result, status) => {
                 if (status === window.google.maps.DirectionsStatus.OK) {
                     console.log(result);
                     setResponse(result);
+
                     const totalDistance = result.routes[0].legs.reduce((total, leg) => total + leg.distance.value, 0) * 0.000621371;
                     setDistance(totalDistance);
                 } else {
@@ -48,43 +51,41 @@ const MapComponent = ({ events }) => {
                     center={{ lat: 39.50, lng: -98.35 }}
                     zoom={4}
                 >
-                    {
-                        response !== null && (
-                            <>
-                                <DirectionsRenderer
-                                    options={{
-                                        directions: response,
-                                        suppressMarkers: false
+                    {response !== null && (
+                        <>
+                            <DirectionsRenderer
+                                options={{
+                                    directions: response,
+                                    suppressMarkers: true,
+                                }}
+                            />
+                            {events.map((event) => (
+                                <Marker
+                                    key={event.EventID}
+                                    position={event.lat && event.lng ? { lat: event.lat, lng: event.lng } : null}
+                                    onClick={() => {
+                                        setSelectedEvent(event);
                                     }}
-                                />
-                                {events.map(event => (
-                                    <Marker
-                                        key={event.EventID}
-                                        position={{ lat: event.lat, lng: event.lng }}
-                                        onClick={() => {
-                                            setSelectedEvent(event);
-                                        }}
-                                        label={event.EventType}
-                                    >
-                                        {selectedEvent === event &&
-                                            <InfoWindow onCloseClick={() => setSelectedEvent(null)}>
-                                                <div>
-                                                    <h4>{event.EventType}</h4>
-                                                </div>
-                                            </InfoWindow>
-                                        }
-                                    </Marker>
-                                ))}
-                            </>
-                        )
-                    }
+                                    icon={iconBase} // Set the custom icon
+                                >
+                                    {selectedEvent === event && (
+                                        <InfoWindow onCloseClick={() => setSelectedEvent(null)}>
+                                            <div>
+                                                <h4>{event.EventType}</h4>
+                                                <p>{event.Address}</p>
+                                                <p>{event.Address}</p>
+                                            </div>
+                                        </InfoWindow>
+                                    )}
+                                </Marker>
+                            ))}
+                        </>
+                    )}
                 </GoogleMap>
             </LoadScript>
-            <Typography variant="h6">
-                Distance: {distance.toFixed(2)} miles
-            </Typography>
+            <Typography variant="h6">Distance: {distance.toFixed(2)} miles</Typography>
         </div>
     );
-}
+};
 
 export default MapComponent;
