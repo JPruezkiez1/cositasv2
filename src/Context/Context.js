@@ -27,7 +27,7 @@ export const DefaultContextProvider = ({ children }) => {
                 setProducts(data);
             });
     }, [pageNumber]);
-
+    const [selectedLoad, setSelectedLoad] = useState(null);
     return (
         <DefaultContext.Provider value={{
             products,
@@ -38,7 +38,9 @@ export const DefaultContextProvider = ({ children }) => {
             setIsLogged,
             pageNumber,
             maxPage,
-            setMaxPage
+            setMaxPage,
+            selectedLoad,
+            setSelectedLoad
         }}>
             {children}
         </DefaultContext.Provider>

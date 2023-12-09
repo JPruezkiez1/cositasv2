@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { useEffect, useState } from 'react';
-import MapComponent from '../Map/Map';
+import { useEffect, useState, useContext } from 'react';
 import Container from '../Container/Container';
 import Button from '@mui/material/Button';
-
+import { DefaultContext } from '../../Context/Context';
 async function getLoads() {
     const response = await fetch('https://ns1.jpruezkiez.com/loads');
     if (!response.ok) {
@@ -17,8 +16,7 @@ async function getLoads() {
 export default function LoadTable() {
     const [loads, setLoads] = useState([]);
     const [error, setError] = useState(null);
-    const [selectedLoad, setSelectedLoad] = useState(null);
-
+    const { setSelectedLoad } = useContext(DefaultContext);
     useEffect(() => {
         getLoads().then(setLoads).catch(setError);
     }, []);
@@ -45,18 +43,17 @@ export default function LoadTable() {
                         setSelectedLoad(params.row);
                     }}
                 >
-                    Show Directions
+                    Show information
                 </Button>
             ),
         },
     ];
 
     return (
-        <Container>
-            <MapComponent events={selectedLoad ? selectedLoad.events : []} loadID={selectedLoad ? selectedLoad.LoadID : null} />
-            <div style={{ width: '100%', height: '50vh' }}>
-                <DataGrid rows={loads} columns={columns} pageSize={5} getRowId={(row) => row.LoadID} />
-            </div>
-        </Container>
+
+        <div style={{ width: '100%', height: 'calc(100% - 50px)' }}>
+            <DataGrid rows={loads} columns={columns} pageSize={5} getRowId={(row) => row.LoadID} />
+        </div>
+
     );
 }

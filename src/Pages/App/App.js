@@ -12,6 +12,7 @@ import FileUploader from "../FileUpload/FileUploader";
 import Users from "../UserManagement/Users";
 import MapComponent from "../../Components/Map/Map";
 import LoadTable from "../../Components/Loads/Loads";
+import LoadPages from "../LoadsPage/Loadspage";
 
 const AppRoutes = () => {
   return (
@@ -26,6 +27,7 @@ const AppRoutes = () => {
       <Route path="/users" element={<Users />} />
       <Route path="/maploads" element={<MapComponent />} />
       <Route path="/loads" element={<LoadTable />} />
+      <Route path="/shipments" element={<LoadPages />} />
     </Routes>
   );
 };

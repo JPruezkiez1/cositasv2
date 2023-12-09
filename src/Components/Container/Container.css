@@ -1,19 +1,8 @@
 .layout_01 {
     display: flex;
-    height: calc(100vh - 50px - 30px);
+    height: calc(100vh);
     width: 100vw;
     flex-wrap: wrap;
     justify-content: center;
     overflow: auto;
-}
-
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-    display: flex;
-    background-color: #834AFD;
-    border-radius: 50px;
-    margin: 25px;
 }

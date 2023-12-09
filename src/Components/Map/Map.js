@@ -6,21 +6,16 @@ const MapComponent = ({ events }) => {
     const [response, setResponse] = useState(null);
     const [distance, setDistance] = useState(0);
     const [selectedEvent, setSelectedEvent] = useState(null);
-
-    const iconBase = 'https://awo.jpruezkiez.com/POeshh.png'; // Replace with your icon URL
-
+    const iconBase = 'https://awo.jpruezkiez.com/POeshh.png';
     useEffect(() => {
         if (!events || events.length === 0) {
             return;
         }
-
         const sortedEvents = [...events].sort((a, b) => a.CallOrder - b.CallOrder);
-
         if (!window.google) {
             console.error("Google Maps JavaScript API not loaded");
             return;
         }
-
         const directionsService = new window.google.maps.DirectionsService();
         directionsService.route(
             {
@@ -44,10 +39,10 @@ const MapComponent = ({ events }) => {
     }, [events]);
 
     return (
-        <div style={{ width: '60vw', height: 400, border: '1px solid black' }}>
-            <LoadScript googleMapsApiKey="AIzaSyCztUKCZ4mi0VCHzUAaAtSY3aXMi1sqRYg">
+        <div style={{ width: '100%', height: '100%' }}>
+            <LoadScript googleMapsApiKey="AIzaSyCztUKCZ4mi0VCHzUAaAtSY3aXMi1sqRYdg">
                 <GoogleMap
-                    mapContainerStyle={{ width: '100%', height: '80%' }}
+                    mapContainerStyle={{ width: '100%', height: '100%' }}
                     center={{ lat: 39.50, lng: -98.35 }}
                     zoom={4}
                 >
@@ -57,6 +52,7 @@ const MapComponent = ({ events }) => {
                                 options={{
                                     directions: response,
                                     suppressMarkers: true,
+                                    treetViewControl: false
                                 }}
                             />
                             {events.map((event) => (
@@ -66,7 +62,7 @@ const MapComponent = ({ events }) => {
                                     onClick={() => {
                                         setSelectedEvent(event);
                                     }}
-                                    icon={iconBase} // Set the custom icon
+                                    icon={iconBase}
                                 >
                                     {selectedEvent === event && (
                                         <InfoWindow onCloseClick={() => setSelectedEvent(null)}>
@@ -83,7 +79,6 @@ const MapComponent = ({ events }) => {
                     )}
                 </GoogleMap>
             </LoadScript>
-            <Typography variant="h6">Distance: {distance.toFixed(2)} miles</Typography>
         </div>
     );
 };
