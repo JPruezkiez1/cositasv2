@@ -9,7 +9,7 @@ const LoadPages = () => {
         <Container>
             <Box sx={{ height: '100%', width: '100%', overflow: 'hidden' }}>
                 <Box sx={{ height: '50%', display: 'flex' }}>
-                    <Box sx={{ width: '40%', bgcolor: 'red' }}>
+                    <Box sx={{ width: '40%' }}>
                         <MapComponent />
 
                     </Box>

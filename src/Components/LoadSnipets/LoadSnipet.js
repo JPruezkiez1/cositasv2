@@ -1,19 +1,22 @@
 import React, { useContext } from 'react';
-import { Box, Typography, Collapse, Button } from '@mui/material';
+import { Box, Typography, Collapse } from '@mui/material';
 import { DefaultContext } from '../../Context/Context';
 
 const LoadInfo = () => {
     const [expandedEventIndex, setExpandedEventIndex] = React.useState(null);
     const { selectedLoad } = useContext(DefaultContext);
-
     const handleToggle = (index) => {
         setExpandedEventIndex(expandedEventIndex === index ? null : index);
     }
 
-    // Sort the events by CallOrder
-    const sortedEvents = selectedLoad && selectedLoad.events ? [...selectedLoad.events].sort((a, b) => a.CallOrder - b.CallOrder) : [];
 
+    if (!selectedLoad) {
+        return (
+            <Typography variant="h4">Please select a load to continue</Typography>
+        );
+    }
 
+    const sortedEvents = selectedLoad.events ? [...selectedLoad.events].sort((a, b) => a.CallOrder - b.CallOrder) : [];
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
             <Box sx={{ mb: 2 }}>
@@ -29,7 +32,7 @@ const LoadInfo = () => {
             </Box>
             <Box sx={{ overflow: 'auto', flexGrow: 1 }}>
                 {sortedEvents.map((event, index) => (
-                    <Box key={index} sx={{ p: 2, border: '1px solid black', borderRadius: 1, m: 1, bgcolor: 'cyan' }} onClick={() => handleToggle(index)}>
+                    <Box key={index} sx={{ p: 2, border: '1px solid black', borderRadius: 1, m: 1 }} onClick={() => handleToggle(index)}>
                         <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 2fr 1fr' }}>
                             <Typography variant="body1">Stop Type: {event.EventType}</Typography>
                             <Typography variant="body1">Address: {event.Address}</Typography>

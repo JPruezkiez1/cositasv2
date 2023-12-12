@@ -1,84 +1,145 @@
-import { Typography } from '@mui/material';
-import React, { useState, useEffect } from 'react';
-import { GoogleMap, LoadScript, DirectionsRenderer, Marker, InfoWindow } from '@react-google-maps/api';
+import React, { useEffect, useRef, useContext, useState } from 'react';
+import 'ol/ol.css';
+import './ol.css'
+import Map from 'ol/Map';
+import View from 'ol/View';
+import TileLayer from 'ol/layer/Tile';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import Feature from 'ol/Feature';
+import Point from 'ol/geom/Point';
+import LineString from 'ol/geom/LineString';
+import OSM from 'ol/source/OSM.js';
+import Overlay from 'ol/Overlay';
+import { Circle, Fill, Stroke, Text, Style } from 'ol/style';
+import { fromLonLat } from 'ol/proj';
+import { DefaultContext } from '../../Context/Context';
 
-const MapComponent = ({ events }) => {
-    const [response, setResponse] = useState(null);
-    const [distance, setDistance] = useState(0);
-    const [selectedEvent, setSelectedEvent] = useState(null);
-    const iconBase = 'https://awo.jpruezkiez.com/POeshh.png';
+const API_KEY = '5b3ce3597851110001cf6248b79337769f8f4c6487ffd785bc7ce8bd';
+
+const Marker = (event) => {
+    const marker = new Feature({
+        geometry: new Point(fromLonLat([event.lng, event.lat])),
+        event: event,
+    });
+
+    const iconStyle = new Style({
+        image: new Circle({
+            radius: 7,
+            fill: new Fill({ color: event.EventType === 'PICKUP' ? 'green' : 'orange' }),
+            stroke: new Stroke({ color: 'white', width: 2 })
+        }),
+        text: new Text({
+            text: event.CallOrder.toString(),
+            offsetY: -15,
+            fill: new Fill({ color: 'black' }),
+        }),
+    });
+
+    marker.setStyle(iconStyle);
+    return marker;
+};
+
+const MapComponent = () => {
+    const mapRef = useRef();
+    const popupRef = useRef();
+    const { selectedLoad } = useContext(DefaultContext);
+    const [popupContent, setPopupContent] = useState('');
+
     useEffect(() => {
-        if (!events || events.length === 0) {
-            return;
-        }
-        const sortedEvents = [...events].sort((a, b) => a.CallOrder - b.CallOrder);
-        if (!window.google) {
-            console.error("Google Maps JavaScript API not loaded");
-            return;
-        }
-        const directionsService = new window.google.maps.DirectionsService();
-        directionsService.route(
-            {
-                origin: sortedEvents[0].lat && sortedEvents[0].lng ? { lat: sortedEvents[0].lat, lng: sortedEvents[0].lng } : sortedEvents[0].Address,
-                destination: sortedEvents[sortedEvents.length - 1].lat && sortedEvents[sortedEvents.length - 1].lng ? { lat: sortedEvents[sortedEvents.length - 1].lat, lng: sortedEvents[sortedEvents.length - 1].lng } : sortedEvents[sortedEvents.length - 1].Address,
-                waypoints: sortedEvents.slice(1, -1).map((event) => ({ location: event.lat && event.lng ? { lat: event.lat, lng: event.lng } : event.Address })),
-                travelMode: window.google.maps.TravelMode.DRIVING,
-            },
-            (result, status) => {
-                if (status === window.google.maps.DirectionsStatus.OK) {
-                    console.log(result);
-                    setResponse(result);
+        const vectorSource = new VectorSource();
 
-                    const totalDistance = result.routes[0].legs.reduce((total, leg) => total + leg.distance.value, 0) * 0.000621371;
-                    setDistance(totalDistance);
-                } else {
-                    console.error(`error fetching directions ${result}`);
-                }
+        const vectorLayer = new VectorLayer({
+            source: vectorSource,
+        });
+
+        const popup = new Overlay({
+            element: popupRef.current,
+            positioning: 'bottom-center',
+            stopEvent: false,
+            offset: [0, -50],
+        });
+
+        const map = new Map({
+            target: mapRef.current,
+            layers: [
+                new TileLayer({
+                    source: new OSM(),
+                }),
+                vectorLayer,
+            ],
+            overlays: [popup],
+            view: new View({
+                center: fromLonLat([-98.5795, 39.8283]),
+                zoom: 4,
+            }),
+        });
+
+        const handleMapClick = evt => {
+            const feature = map.forEachFeatureAtPixel(evt.pixel, f => f);
+
+            if (feature) {
+                const coordinates = feature.getGeometry().getCoordinates();
+                popup.setPosition(coordinates);
+                setPopupContent(
+                    `<p>${feature.get('event').EventType}</p><p>${feature.get('event').Address}</p>`
+                );
+            } else {
+                popup.setPosition(undefined);
             }
-        );
-    }, [events]);
+        };
+
+        map.on('click', handleMapClick);
+
+        if (selectedLoad && selectedLoad.events && selectedLoad.events.length >= 2) {
+            vectorSource.addFeatures(selectedLoad.events.map(event => Marker(event)));
+
+            const fetchRoute = async () => {
+                const sortedEvents = [...selectedLoad.events].sort((a, b) => a.CallOrder - b.CallOrder);
+
+                for (let i = 0; i < sortedEvents.length - 1; i++) {
+                    const start = [sortedEvents[i].lng, sortedEvents[i].lat];
+                    const end = [sortedEvents[i + 1].lng, sortedEvents[i + 1].lat];
+
+                    try {
+                        const response = await fetch(`https://api.openrouteservice.org/v2/directions/driving-car?api_key=${API_KEY}&start=${start.join(',')}&end=${end.join(',')}`);
+
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+
+                        const data = await response.json();
+
+                        if (data.features && data.features[0] && data.features[0].geometry && data.features[0].geometry.coordinates) {
+                            const route = new LineString(data.features[0].geometry.coordinates).transform('EPSG:4326', map.getView().getProjection());
+                            const routeFeature = new Feature(route);
+                            routeFeature.setStyle(new Style({
+                                stroke: new Stroke({
+                                    color: '#ffcc33',
+                                    width: 5
+                                })
+                            }));
+                            vectorSource.addFeature(routeFeature);
+                        }
+                    } catch (error) {
+                        console.error('There has been a problem with your fetch operation:', error);
+                    }
+                }
+            };
+
+            fetchRoute();
+        }
+
+        return () => {
+            map.un('click', handleMapClick);
+            map.setTarget(undefined);
+        };
+    }, [selectedLoad]);
 
     return (
         <div style={{ width: '100%', height: '100%' }}>
-            <LoadScript googleMapsApiKey="AIzaSyCztUKCZ4mi0VCHzUAaAtSY3aXMi1sqRYdg">
-                <GoogleMap
-                    mapContainerStyle={{ width: '100%', height: '100%' }}
-                    center={{ lat: 39.50, lng: -98.35 }}
-                    zoom={4}
-                >
-                    {response !== null && (
-                        <>
-                            <DirectionsRenderer
-                                options={{
-                                    directions: response,
-                                    suppressMarkers: true,
-                                    treetViewControl: false
-                                }}
-                            />
-                            {events.map((event) => (
-                                <Marker
-                                    key={event.EventID}
-                                    position={event.lat && event.lng ? { lat: event.lat, lng: event.lng } : null}
-                                    onClick={() => {
-                                        setSelectedEvent(event);
-                                    }}
-                                    icon={iconBase}
-                                >
-                                    {selectedEvent === event && (
-                                        <InfoWindow onCloseClick={() => setSelectedEvent(null)}>
-                                            <div>
-                                                <h4>{event.EventType}</h4>
-                                                <p>{event.Address}</p>
-                                                <p>{event.Address}</p>
-                                            </div>
-                                        </InfoWindow>
-                                    )}
-                                </Marker>
-                            ))}
-                        </>
-                    )}
-                </GoogleMap>
-            </LoadScript>
+            <div ref={mapRef} style={{ width: '100%', height: '100%' }} />
+            <div ref={popupRef} className="ol-popup" dangerouslySetInnerHTML={{ __html: popupContent }} />
         </div>
     );
 };
