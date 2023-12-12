@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useContext, useState } from 'react';
-import 'ol/ol.css';
-// import './ol.css'
+import './ol.css'
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
