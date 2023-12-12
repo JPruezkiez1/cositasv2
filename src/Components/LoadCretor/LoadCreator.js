@@ -93,6 +93,14 @@ const LoadCreator = () => {
                     name="Payment"
                     label="Payment"
                     variant="outlined"
+                    type="number"
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    inputProps={{
+                        min: 0,
+                        step: 0.01
+                    }}
                     required
                     value={load.Payment}
                     onChange={handleChange}

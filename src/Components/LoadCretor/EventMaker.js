@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, TextField, Typography, MenuItem } from '@mui/material';
 
 const EventMaker = ({ event, isEditing, onSave, onEdit, onRemove, callOrder }) => {
     const [localEvent, setLocalEvent] = useState(event);
@@ -30,7 +30,16 @@ const EventMaker = ({ event, isEditing, onSave, onEdit, onRemove, callOrder }) =
             <Box display="flex" flexWrap="wrap" justifyContent="space-between">
                 {isEditing ? (
                     <>
-                        <TextField name="EventType" label="Event Type" value={localEvent.EventType} onChange={handleChange} />
+                        <TextField
+                            id="event-type"
+                            select
+                            label="Event Type"
+                            value={localEvent.EventType}
+                            onChange={handleChange}
+                        >
+                            <MenuItem value={"PICKUP"}>PICKUP</MenuItem>
+                            <MenuItem value={"DROP-OFF"}>DROP-OFF</MenuItem>
+                        </TextField>
                         <TextField name="Weight" label="Weight" value={localEvent.Weight} onChange={handleChange} />
                         <TextField name="Address" label="Address" value={localEvent.Address} onChange={handleChange} />
                         <TextField name="State" label="State" value={localEvent.State} onChange={handleChange} />
@@ -39,19 +48,18 @@ const EventMaker = ({ event, isEditing, onSave, onEdit, onRemove, callOrder }) =
                         <TextField name="Status" label="Status" value={localEvent.Status} onChange={handleChange} />
                         <Button onClick={handleSave}>Save</Button>
                     </>
-                ) : (
-                    <>
-                        <Typography>Event Type: {localEvent.EventType}</Typography>
-                        <Typography>Weight: {localEvent.Weight}</Typography>
-                        <Typography>Address: {localEvent.Address}</Typography>
-                        <Typography>State: {localEvent.State}</Typography>
-                        <Typography>Country: {localEvent.Country}</Typography>
-                        <Typography>City: {localEvent.City}</Typography>
-                        <Typography>Status: {localEvent.Status}</Typography>
-                        <Button onClick={handleEdit}>Edit</Button>
-                        <Button onClick={handleRemove}>Remove</Button>
-                    </>
-                )}
+                ) :
+                    (
+                        <Box border={1} borderColor="grey.500" borderRadius={2} p={2} width="100%" display="flex" justifyContent="space-between">
+                            <Typography>Event Type: {localEvent.EventType}</Typography>
+                            <Typography>Address: {localEvent.Address}</Typography>
+                            <Typography>Status: {localEvent.Status}</Typography>
+                            <Box>
+                                <Button onClick={handleEdit}>Edit</Button>
+                                <Button onClick={handleRemove}>Remove</Button>
+                            </Box>
+                        </Box>
+                    )}
             </Box>
         </Box>
     );
