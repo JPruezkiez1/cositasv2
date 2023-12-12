@@ -4,15 +4,13 @@ import EventMaker from './EventMaker';
 
 const LoadCreator = () => {
     const [load, setLoad] = useState({
-        LoadID: '',
         LoadName: '',
         TruckType: '',
         Payment: '',
         Driver: '',
         Rate_Confirmation: '',
         Truck_VIN: '',
-        Dispatcher: '',
-        events: []
+        Dispatcher: ''
     });
 
     const [events, setEvents] = useState([]);
@@ -23,42 +21,55 @@ const LoadCreator = () => {
     };
 
     const handleAddEvent = () => {
-        setEvents([...events, { id: Date.now() }]);
-        setEditingEventId(Date.now());
+        setEvents([...events, {}]);
+        setEditingEventId(events.length);
     };
 
-    const handleSaveEvent = (id, updatedEvent) => {
-        setEvents(events.map(event => event.id === id ? updatedEvent : event));
+    const handleSaveEvent = (updatedEvent) => {
+        const newEvents = [...events];
+        newEvents[editingEventId] = updatedEvent;
+        setEvents(newEvents);
         setEditingEventId(null);
     };
 
-    const handleEditEvent = (id) => {
-        setEditingEventId(id);
+    const handleEditEvent = (index) => {
+        setEditingEventId(index);
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleRemoveEvent = (index) => {
+        const newEvents = [...events];
+        newEvents.splice(index, 1);
+        setEvents(newEvents.map((event, index) => ({ ...event, CallOrder: index + 1 })));
+    };
 
-        if (!load.LoadName || !load.TruckType || !load.Payment || !load.Driver) {
-            alert('Please fill in all required fields');
-            return;
+    const handleCreateLoad = async () => {
+        const payload = {
+            load: load,
+            events: events
+        };
+
+        try {
+            const response = await fetch('https://ns1.jpruezkiez.com/createload', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            console.log(response);
+        } catch (error) {
+            console.error('Failed to create load:', error);
         }
-
-        console.log('Load data submitted:', load);
     };
 
     return (
         <Box>
             <Typography variant="h5">Create Load</Typography>
             <Box display="flex" flexWrap="wrap" justifyContent="space-between">
-                <TextField
-                    id="LoadID"
-                    name="LoadID"
-                    label="Load ID"
-                    variant="outlined"
-                    value={load.LoadID}
-                    onChange={handleChange}
-                />
                 <TextField
                     id="LoadName"
                     name="LoadName"
@@ -121,16 +132,19 @@ const LoadCreator = () => {
                 />
             </Box>
             <Box>
-                {events.map((event) => (
+                {events.map((event, index) => (
                     <EventMaker
-                        key={event.id}
+                        key={index}
                         event={event}
-                        isEditing={event.id === editingEventId}
-                        onSave={handleSaveEvent}
-                        onEdit={handleEditEvent}
+                        isEditing={index === editingEventId}
+                        onSave={(updatedEvent) => handleSaveEvent(updatedEvent)}
+                        onEdit={() => handleEditEvent(index)}
+                        onRemove={() => handleRemoveEvent(index)}
+                        callOrder={index + 1}
                     />
                 ))}
                 <Button onClick={handleAddEvent}>Add Stop</Button>
+                <Button onClick={handleCreateLoad}>Create Load</Button>
             </Box>
         </Box>
     );
