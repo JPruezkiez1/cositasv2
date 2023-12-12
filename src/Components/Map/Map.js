@@ -41,6 +41,9 @@ const Marker = (event) => {
 };
 
 const MapComponent = () => {
+    useEffect(() => {
+        require('ol/ol.css');
+    }, []);
     const mapRef = useRef();
     const popupRef = useRef();
     const { selectedLoad } = useContext(DefaultContext);
