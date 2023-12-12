@@ -43,6 +43,14 @@ const LoadCreator = () => {
     };
 
     const handleCreateLoad = async () => {
+        const hasPickup = events.some(event => event.EventType === 'PICKUP');
+        const hasDropOff = events.some(event => event.EventType === 'DROP-OFF');
+
+        if (!hasPickup || !hasDropOff) {
+            alert('Please add at least one pickup event and one drop-off event before creating the load.');
+            return;
+        }
+
         const payload = {
             load: load,
             events: events
