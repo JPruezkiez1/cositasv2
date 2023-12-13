@@ -1,6 +1,6 @@
 .layout_01 {
     display: flex;
-    height: calc(100vh);
+    height: calc(100vh - 50px);
     width: 100vw;
     flex-wrap: wrap;
     justify-content: center;

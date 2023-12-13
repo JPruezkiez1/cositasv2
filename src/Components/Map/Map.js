@@ -43,6 +43,8 @@ const MapComponent = () => {
     useEffect(() => {
         require('ol/ol.css');
     }, []);
+
+
     const mapRef = useRef();
     const popupRef = useRef();
     const { selectedLoad } = useContext(DefaultContext);
@@ -64,6 +66,7 @@ const MapComponent = () => {
 
         const map = new Map({
             target: mapRef.current,
+
             layers: [
                 new TileLayer({
                     source: new OSM(),
