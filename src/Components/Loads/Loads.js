@@ -4,7 +4,7 @@ import { useEffect, useState, useContext } from 'react';
 import Button from '@mui/material/Button';
 import { DefaultContext } from '../../Context/Context';
 async function getLoads() {
-    const response = await fetch('https://ns1.jpruezkiez.com/loads');
+    const response = await fetch('https://tms.jpruezkiez.com/loads');
     if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
     }

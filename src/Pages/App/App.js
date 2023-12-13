@@ -12,6 +12,7 @@ import FileUploader from "../FileUpload/FileUploader";
 import Users from "../UserManagement/Users";
 import LoadPages from "../LoadsPage/Loadspage";
 import LoadCreator from "../Create-Loads/LoadCreator";
+import DriversTable from "../../Components/DriverList/Drivers";
 
 const AppRoutes = () => {
   return (
@@ -26,6 +27,7 @@ const AppRoutes = () => {
       <Route path="/users" element={<Users />} />
       <Route path="/shipments" element={<LoadPages />} />
       <Route path="/newshipment" element={<LoadCreator />} />
+      <Route path="/drivers" element={<DriversTable />} />
     </Routes>
   );
 };

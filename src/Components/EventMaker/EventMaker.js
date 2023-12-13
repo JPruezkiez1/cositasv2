@@ -47,7 +47,7 @@ const EventMaker = ({ event, isEditing, onSave, onEdit, onRemove, callOrder }) =
     };
 
 
-    const matches = useMediaQuery(theme.breakpoints.up('sm'));
+    // const matches = useMediaQuery(theme.breakpoints.up('sm'));
     const ematches = useMediaQuery(('(max-width:870px)'));
     return (
         <ThemeProvider theme={theme}>
