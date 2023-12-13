@@ -18,7 +18,7 @@ const LoadInfo = () => {
 
     const sortedEvents = selectedLoad.events ? [...selectedLoad.events].sort((a, b) => a.CallOrder - b.CallOrder) : [];
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'scroll' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', overflowY: 'scroll' }}>
             <Box sx={{ mb: 2 }}>
                 <Typography variant="h6">Load ID: {selectedLoad?.LoadID}</Typography>
                 <Typography variant="body1">Load Name: {selectedLoad?.LoadName}</Typography>
