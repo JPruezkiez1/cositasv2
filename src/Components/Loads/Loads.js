@@ -50,7 +50,7 @@ export default function LoadTable() {
 
     return (
 
-        <div style={{ width: '100%', height: 'calc(100% - 50px)' }}>
+        <div style={{ width: '100%', height: '100%' }}>
             <DataGrid rows={loads} columns={columns} pageSize={5} getRowId={(row) => row.LoadID} />
         </div>
 

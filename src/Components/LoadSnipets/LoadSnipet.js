@@ -18,7 +18,7 @@ const LoadInfo = () => {
 
     const sortedEvents = selectedLoad.events ? [...selectedLoad.events].sort((a, b) => a.CallOrder - b.CallOrder) : [];
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'scroll' }}>
             <Box sx={{ mb: 2 }}>
                 <Typography variant="h6">Load ID: {selectedLoad?.LoadID}</Typography>
                 <Typography variant="body1">Load Name: {selectedLoad?.LoadName}</Typography>
@@ -30,7 +30,7 @@ const LoadInfo = () => {
                 <Typography variant="body1">Dispatcher: {selectedLoad?.Dispatcher}</Typography>
                 <Typography variant="h6">Legs:</Typography>
             </Box>
-            <Box sx={{ overflow: 'auto', flexGrow: 1 }}>
+            <Box >
                 {sortedEvents.map((event, index) => (
                     <Box key={index} sx={{ p: 2, border: '1px solid black', borderRadius: 1, m: 1 }} onClick={() => handleToggle(index)}>
                         <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 2fr 1fr' }}>
