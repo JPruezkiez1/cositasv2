@@ -16,7 +16,7 @@ import LoadCreator from "../Create-Loads/LoadCreator";
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Store />} />
+      <Route path="/" element={<LoadPages />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<AuthRoutes><Login /></AuthRoutes>} />
       <Route path="/store" element={<Store />} />
