@@ -83,7 +83,7 @@ const LoadCreator = () => {
     };
 
 
-    const matches = useMediaQuery('(max-width:390px)');
+    const matches = useMediaQuery('(max-width:450px)');
 
     const TexfieldPhone = createTheme({
         components: {
@@ -178,7 +178,7 @@ const LoadCreator = () => {
                             onChange={handleChange}
                         />
                     </Box>
-                    <Box sx={{ overflow: 'scroll', }}>
+                    <Box sx={{ overflow: 'hidden', }}>
                         {events.map((event, index) => (
                             <EventMaker
                                 key={index}

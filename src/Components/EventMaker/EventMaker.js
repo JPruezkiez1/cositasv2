@@ -48,7 +48,7 @@ const EventMaker = ({ event, isEditing, onSave, onEdit, onRemove, callOrder }) =
 
 
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
-
+    const ematches = useMediaQuery(('(max-width:870px)'));
     return (
         <ThemeProvider theme={theme}>
             <Box sx={{ overflow: 'auto' }}>
@@ -99,7 +99,7 @@ const EventMaker = ({ event, isEditing, onSave, onEdit, onRemove, callOrder }) =
                             sx={{
                                 gap: '10px',
                                 display: 'flex',
-                                flexDirection: matches ? 'row' : 'column',
+                                flexDirection: ematches ? 'column' : 'row',
                                 alignItems: 'center',
                                 borderRadius: 2,
                                 justifyContent: 'space-between',
@@ -108,8 +108,8 @@ const EventMaker = ({ event, isEditing, onSave, onEdit, onRemove, callOrder }) =
                                 padding: 2
                             }}
                         >
-                            <Typography sx={{ width: '100px', height: 'auto', display: "flex", flexDirection: matches ? 'row' : 'column', textAlign: 'center' }}>Event: <Typography> {localEvent.EventType}</Typography></Typography>
-                            <Typography sx={{ width: matches ? '500px' : '370px', height: 'auto', display: "flex", flexDirection: matches ? 'row' : 'column', textAlign: 'center' }}>Address: <Typography> {localEvent.Address}</Typography></Typography>
+                            <Typography sx={{ width: '170px', height: 'auto', display: "flex", flexDirection: ematches ? 'column' : 'row', textAlign: 'center' }}>Event: <Typography> {localEvent.EventType}</Typography></Typography>
+                            <Typography sx={{ width: ematches ? '370px' : '500px', display: "flex", flexDirection: ematches ? 'column' : 'row', textAlign: 'center' }}>Address: <Typography> {localEvent.Address}</Typography></Typography>
                             <Box>
                                 <Button onClick={handleEdit}>Edit</Button>
                                 <Button onClick={handleRemove}>Remove</Button>
@@ -117,7 +117,7 @@ const EventMaker = ({ event, isEditing, onSave, onEdit, onRemove, callOrder }) =
                         </Box>
                     )}
             </Box>
-        </ThemeProvider>
+        </ThemeProvider >
     );
 };
 
