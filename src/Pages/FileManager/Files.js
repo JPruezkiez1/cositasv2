@@ -36,12 +36,12 @@ const DataTable = () => {
                     const id = params.row.id;
                     const fileName = params.row.file;
                     try {
-                        const response = await axios.delete('https://file.jpruezkiez.com/deletefile', {
+                        const response = await axios.delete('https://file.jpruezkiez.com/delete-file', {
                             data: { filename: fileName }
                         });
 
                         console.log(response.data);
-                        setData((prevData) => prevData.filter((data) => data.uplodname !== id));
+                        setData((prevData) => prevData.filter((data) => data.id !== id));
                     } catch (error) {
                         console.error('Error:', error);
                     }
