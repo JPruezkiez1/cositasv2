@@ -51,7 +51,7 @@ const DataTable = () => {
                     '&:hover': {
                         backgroundColor: 'red',
                     },
-                }} variant="contained" color="secondary" onClick={onClick}>Delete</Button>;
+                }} variant="contained" color="secondary" >Delete</Button>;
             },
         },
         {
